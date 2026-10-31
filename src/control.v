@@ -58,8 +58,9 @@ always @(*) begin
         pc_load = 1'b1;
         acc_zero = 1'b1;
       end
-  end
       2'b11: begin
         pc_load = 1'b1;
         pc_load = 1'b1;
       end
+  end
+end
