@@ -105,6 +105,7 @@ module tb_alu;
       $display(">>> ALL ALU TESTS PASSED SUCCESSFULLY! <<<");
     end else begin
       $display(">>> ALU TESTS FAILED WITH %0d ERRORS! <<<", errors);
+      $fatal(1, "ALU tests failed");
     end
 
     $finish;

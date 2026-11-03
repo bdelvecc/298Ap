@@ -164,6 +164,7 @@ module tb_regfile;
       $display(">>> ALL REGISTER FILE TESTS PASSED SUCCESSFULLY! <<<");
     end else begin
       $display(">>> REGISTER FILE TESTS FAILED WITH %0d ERRORS! <<<", errors);
+      $fatal(1, "Register file tests failed");
     end
 
     $finish;
