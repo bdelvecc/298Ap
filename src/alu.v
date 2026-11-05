@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2026 Ben Del Vecchio & Mohammad-Reza Riahi-Fard
- * SPDX-License-Identifier: Apache-2.0
- */
-
 `default_nettype none
 `timescale 1ns/1ps
 
