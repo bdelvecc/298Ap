@@ -30,7 +30,7 @@ module cpu(
     
   );
   pc pcCPU(
-    .clk.(clk),
+    .clk(clk),
     .rst_n(rst_n),
     .en(1'b1),
     .pc_load(pc_load),
