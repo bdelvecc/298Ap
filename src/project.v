@@ -26,7 +26,7 @@ module tt_um_bdelvecc (
     
   // All output pins must be assigned. If not used, assign to 0.
     assign uio_out[7:6] = 2'b00;
-  assign uio_oe  = 1;
+  assign uio_oe  = 8'hFF;
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, uio_in, 1'b0};
