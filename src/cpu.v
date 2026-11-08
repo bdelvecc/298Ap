@@ -1,10 +1,10 @@
 `default_nettype none
 
 module cpu(
-  input  wire clk,
-  input  wire rst_n,
-  input  wire [7:0] instr,
-  output wire [5:0] pc_out,
+  input wire clk,
+  input wire rst_n,
+  input wire [7:0] ui_in,
+  input wire step,  output wire [5:0] pc_out,
   output wire [7:0] out_value
 );
   
@@ -16,6 +16,17 @@ module cpu(
   wire imm_use;
   wire imm_signed;
   wire pc_load;
+  wire instr,
+  wire exec;  
+  reg [2:0] step_sync;
+  
+  //exec is high for one clock after each rising edge of step
+  assign exec = step_sync[1] & ~step_sync[2];
+  
+  always @(posedge clk or negedge rst_n) begin
+    if(!rst_n) step_sync <= 3'b000;
+    else step_sync <= {step_sync[1:0], step};
+  end
 
   control controlCPU(
     .instr(instr),        
@@ -32,7 +43,7 @@ module cpu(
   pc pcCPU(
     .clk(clk),
     .rst_n(rst_n),
-    .en(1'b1),
+    .en(exec),
     .pc_load(pc_load),
     .jump_loc({1'b0, instr[4:0]}),
     .PC(pc_out)    
@@ -41,9 +52,9 @@ module cpu(
     .instr(instr),        
     .acc_zero(acc_zero),               
     .alu_op(alu_op),
-    .acc_use(acc_use),  
-    .reg_use(reg_use),  
-    .out_use(out_use),  
+    .acc_use(acc_use & exec),
+    .reg_use(reg_use & exec),
+    .out_use(out_use & exec),
     .imm_use(imm_use),  
     .imm_signed(imm_signed), 
     .clk(clk),
