@@ -17,7 +17,7 @@ module tt_um_bdelvecc (
 );
 
     cpu cpuTop(
-        .step(uio_in[6])
+        .step(uio_in[6]),
         .clk(clk),
         .rst_n(rst_n),
         .ui_in(ui_in),
@@ -26,7 +26,7 @@ module tt_um_bdelvecc (
     );  
     
   // All output pins must be assigned. If not used, assign to 0.
-    assign uio_out[7] = 1'b0;
+    assign uio_out[7:6] = 2'b00;
     assign uio_oe  = 8'hBF;
 
   // List all unused inputs to prevent warnings
