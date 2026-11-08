@@ -16,7 +16,7 @@ module cpu(
   wire imm_use;
   wire imm_signed;
   wire pc_load;
-  wire [7:0] instr;
+  wire [7:0] instr = ui_in;
   wire exec;  
   reg [2:0] step_sync;
   
