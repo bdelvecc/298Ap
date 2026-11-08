@@ -43,7 +43,7 @@ module datapath (
   assign imm_new = {{3{imm_signed & instr[4]}}, instr[4:0]}; //check if msb is 1 and if imm can be signed. if so fill the rest with 1
   assign b = imm_use ? imm_new : r_rdata;
 
-  always @(posedge clk) begin
+  always @(posedge clk or negedge rst_n) begin
     if(!rst_n) begin
       output_reg <= 0;
     end
