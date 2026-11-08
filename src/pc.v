@@ -9,7 +9,7 @@ module pc (
   input wire [5:0] jump_loc,
   output reg [5:0] PC
 );
-  always @(posedge clk) begin
+  always @(posedge clk or negedge rst_n) begin
     if(!rst_n) PC <= 6'd0;
     else if (en) begin
       if(pc_load) PC <= jump_loc;
