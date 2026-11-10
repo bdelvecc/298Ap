@@ -22,11 +22,12 @@ module tt_um_bdelvecc (
         .rst_n(rst_n),
         .ui_in(ui_in),
         .pc_out(uio_out[5:0]),
-        .out_value(uo_out)
+        .out_value(uo_out),
+        .out_valid(uio_out[7])
     );  
     
   // All output pins must be assigned. If not used, assign to 0.
-    assign uio_out[7:6] = 2'b00;
+    assign uio_out[6] = 1'b0;
     assign uio_oe  = 8'hBF;
 
   // List all unused inputs to prevent warnings
