@@ -1,4 +1,4 @@
-s`default_nettype none
+`default_nettype none
 
 module cpu(
   input wire clk,
@@ -34,10 +34,6 @@ module cpu(
   reg second;
   reg [5:0] jump_loc;
   wire [7:0] instr = second ? ir : ui_in;
-  wire imm_signed;
-  wire pc_load;
-  wire exec;  
-  reg [2:0] step_sync;
   
   //exec is high for one clock after each rising edge of step
   assign exec = step_sync[1] & ~step_sync[2];
