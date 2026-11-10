@@ -11,7 +11,6 @@ module control (
   output reg acc_use,  //Accumulator used
   output reg reg_use,  //Register used
   output reg out_use,  //Output on
-  output reg imm_signed, //Immediate signed
   output reg carry_use, //Carry flag written
   output reg hi_use,    //Multiply high byte written
   output reg imm_signed, //Immediate signed
@@ -90,7 +89,6 @@ always @(*) begin
   acc_use = 1'b0; 
   reg_use = 1'b0; 
   out_use = 1'b0;
-  imm_use = 1'b0; 
   imm_signed = 1'b0; 
   pc_load = 1'b0;
   if(instr[7] == 1'b0) begin
