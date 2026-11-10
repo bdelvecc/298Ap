@@ -35,10 +35,10 @@ module control (
   localparam ALU_SLL  = 4'b1010;
   localparam ALU_SRL  = 4'b1011;
 
-  //No Operand
+  //Two byte
   localparam FN_LONG  = 4'b1100;
 
-  //Two byte 
+  //No Opperand
   localparam FN_SYS   = 4'b0010;
 
   //NO OPERAND INSTRUCTIONS
@@ -85,12 +85,20 @@ module control (
 
   
 always @(*) begin
-  alu_op = 4'b0000; 
-  acc_use = 1'b0; 
-  reg_use = 1'b0; 
+    alu_op = 4'b0000;
+  b_sel = B_REG;
+  acc_use = 1'b0;
+  reg_use = 1'b0;
   out_use = 1'b0;
-  imm_signed = 1'b0; 
+  carry_use = 1'b0;
+  hi_use = 1'b0;
+  imm_signed = 1'b0;
+  two_byte = 1'b0;
+  pc_hold = 1'b0;
   pc_load = 1'b0;
+  pc_src = PC_IMM;
+  push = 1'b0;
+  pop = 1'b0;
   if(instr[7] == 1'b0) begin
     alu_op = instr[6:3];
     case(instr[6:3])
