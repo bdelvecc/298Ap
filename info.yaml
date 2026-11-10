@@ -23,6 +23,7 @@ project:
     - "control.v"
     - "pc.v"
     - "datapath.v"
+    - "stack.v"
     - "cpu.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
@@ -55,8 +56,8 @@ pinout:
   uio[3]: "Program counter bit 3"
   uio[4]: "Program counter bit 4"
   uio[5]: "Program counter bit 5"
-  uio[6]: "Reserved"
-  uio[7]: "Reserved"
+  uio[6]: "Step (input)"
+  uio[7]: "Output valid"
 
 # Do not change!
 yaml_version: 6
