@@ -77,17 +77,12 @@ module datapath (
       out_valid <= 0;
       carry_flag <= 0;
       hi_reg <= 0;
-
     end
-    else if(out_use) begin
-      output_reg <= acc_data;
     else begin
       if(out_use) output_reg <= acc_data;
       if(exec) out_valid <= out_use;
       if(carry_use) carry_flag <= alu_carry;
       if(hi_use) hi_reg <= alu_hi;
-     end
-
     end
   end
 endmodule
