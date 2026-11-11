@@ -1,47 +1,29 @@
-# Sample testbench for a Tiny Tapeout project
+# CPU tests
 
-This is a sample testbench for a Tiny Tapeout project. It uses [cocotb](https://docs.cocotb.org/en/stable/) to drive the DUT and check the outputs.
-See below to get started or for more information, check the [website](https://tinytapeout.com/hdl/testing/).
+The cocotb suite drives the Tiny Tapeout top-level pins, so the same tests can
+run against RTL and the gate-level netlist. It covers instruction behavior,
+programs, step timing, reset, and a 10,000-step deterministic random program.
 
-## Setting up
+## Run the RTL suite
 
-1. Edit [Makefile](Makefile) and modify `PROJECT_SOURCES` to point to your Verilog files.
-2. Edit [tb.v](tb.v) and replace `tt_um_example` with your module name.
-
-## How to run
-
-To run the RTL simulation:
+Install Icarus Verilog and the pinned Python dependencies, then run:
 
 ```sh
+python -m pip install -r requirements.txt
 make -B
 ```
 
-To run gatelevel simulation, first harden your project and copy `../runs/wokwi/results/final/verilog/gl/{your_module_name}.v` to `gate_level_netlist.v`.
+The GitHub Actions test workflow runs this suite alongside the standalone ALU
+and register-file testbenches.
 
-Then run:
+## Run the gate-level suite
+
+After hardening, put the generated top-level gate netlist at
+`test/gate_level_netlist.v`, then run:
 
 ```sh
 make -B GATES=yes
 ```
 
-If you wish to save the waveform in VCD format instead of FST format, edit tb.v to use `$dumpfile("tb.vcd");` and then run:
-
-```sh
-make -B FST=
-```
-
-This will generate `tb.vcd` instead of `tb.fst`.
-
-## How to view the waveform file
-
-Using GTKWave
-
-```sh
-gtkwave tb.fst tb.gtkw
-```
-
-Using Surfer
-
-```sh
-surfer tb.fst
-```
+The Tiny Tapeout `gl_test` workflow supplies that netlist and invokes this same
+cocotb suite.

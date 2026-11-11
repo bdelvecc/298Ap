@@ -17,6 +17,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes iverilog
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install cocotb test dependencies
+        run: python -m pip install -r test/requirements.txt
+
+      - name: Run CPU cocotb tests
+        working-directory: test
+        run: make -B
+
       - name: Run ALU tests
         run: |
           iverilog -g2012 -Wall -s tb_alu -o /tmp/sim_alu src/alu.v test/tb_alu.v
