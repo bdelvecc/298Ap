@@ -16,12 +16,21 @@ module tt_um_bdelvecc (
     input  wire       rst_n     // reset_n - low to reset
 );
 
+    cpu cpuTop(
+        .step(uio_in[6]),
+        .clk(clk),
+        .rst_n(rst_n),
+        .ui_in(ui_in),
+        .pc_out(uio_out[5:0]),
+        .out_value(uo_out),
+        .out_valid(uio_out[7])
+    );  
+    
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+    assign uio_out[6] = 1'b0;
+    assign uio_oe  = 8'hBF;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+    wire _unused = &{ena, uio_in[7], uio_in[5:0], 1'b0};
 
 endmodule
