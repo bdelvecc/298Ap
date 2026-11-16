@@ -1,42 +1,30 @@
-![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
+# 298Ap 8-bit CPU
 
-# Tiny Tapeout Verilog Project Template
+298Ap is a step-controlled 8-bit accumulator processor for Tiny Tapeout. It has
+eight general-purpose registers, a 6-bit program counter, a four-entry return
+stack, carry-aware arithmetic, and a multiply instruction. An external host
+stores the 64-byte program, drives instructions and data on `ui_in`, and pulses
+`uio[6]` to execute one step.
 
-- [Read the documentation for project](docs/info.md)
+See [the datasheet](docs/info.md) for the pin protocol and
+[the ISA proposal](docs/Proposal.md) for instruction encodings.
 
-## What is Tiny Tapeout?
+## Test
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+With Icarus Verilog installed, run the cocotb suite and standalone ALU and
+register-file benches from the repository root:
 
-To learn more and get started, visit https://tinytapeout.com.
+```sh
+python -m pip install -r test/requirements.txt
+make -B -C test
+make -C test test_units
+```
 
-## Set up your Verilog project
+GitHub Actions runs the same RTL tests. Tiny Tapeout's `gl_test` workflow also
+uses the top-level cocotb suite against the gate-level netlist.
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+## Build
 
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
-
-## Enable GitHub actions to build the results page
-
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
-
-## Resources
-
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+The project targets the GF180MCU process. The Tiny Tapeout GDS workflow builds
+the layout from the source list in `info.yaml`; the clock constraint is 50 ns
+(20 MHz maximum).
