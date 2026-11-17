@@ -1,3 +1,5 @@
+![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
+
 # CPU tests
 
 The cocotb suite drives the Tiny Tapeout top-level pins, so the same tests can
