@@ -1,3 +1,4 @@
+![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 # 298Ap 8-bit CPU
 
 298Ap is a step-controlled 8-bit accumulator processor for Tiny Tapeout. It has
