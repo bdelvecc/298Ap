@@ -5,7 +5,7 @@
 SIM ?= icarus
 FST ?= -fst # Use more efficient FST format
 TOPLEVEL_LANG ?= verilog
-SRC_DIR = $(PWD)/../src
+SRC_DIR = $(CURDIR)/../src
 PROJECT_SOURCES = project.v alu.v register_file.v control.v pc.v datapath.v stack.v cpu.v
 
 ifneq ($(GATES),yes)
@@ -27,7 +27,7 @@ VERILOG_SOURCES += $(PDK_ROOT)/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/verilo
 VERILOG_SOURCES += $(PDK_ROOT)/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/verilog/gf180mcu_fd_sc_mcu7t5v0.v
 
 # this gets copied in by the GDS action workflow
-VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
+VERILOG_SOURCES += $(CURDIR)/gate_level_netlist.v
 
 endif
 
@@ -35,7 +35,7 @@ endif
 COMPILE_ARGS 		+= -I$(SRC_DIR)
 
 # Include the testbench sources:
-VERILOG_SOURCES += $(PWD)/tb.v
+VERILOG_SOURCES += $(CURDIR)/tb.v
 TOPLEVEL = tb
 
 # List test modules to run, separated by commas and without the .py suffix:
@@ -49,12 +49,12 @@ include $(shell cocotb-config --makefiles)/Makefile.sim
 
 test_alu:
 	@mkdir -p sim_build
-	iverilog -g2012 -Wall -s tb_alu -o sim_build/sim_alu.vvp $(SRC_DIR)/alu.v $(PWD)/tb_alu.v
+	iverilog -g2012 -Wall -s tb_alu -o sim_build/sim_alu.vvp $(SRC_DIR)/alu.v $(CURDIR)/tb_alu.v
 	vvp sim_build/sim_alu.vvp
 
 test_regfile:
 	@mkdir -p sim_build
-	iverilog -g2012 -Wall -s tb_regfile -o sim_build/sim_regfile.vvp $(SRC_DIR)/register_file.v $(PWD)/tb_regfile.v
+	iverilog -g2012 -Wall -s tb_regfile -o sim_build/sim_regfile.vvp $(SRC_DIR)/register_file.v $(CURDIR)/tb_regfile.v
 	vvp sim_build/sim_regfile.vvp
 
 test_units: test_alu test_regfile
